@@ -1,4 +1,4 @@
-const extractImageUrl = (text) => {
+const extractImageUrl = (text) => { //para lo de las imagenes
     const urlRegex = /(https?:\/\/[^\s]+\.(?:jpg|jpeg|png|gif|webp|svg)(\?[^\s]*)?)/i
     const match = text.match(urlRegex)
     return match ? match[0] : null
@@ -11,7 +11,7 @@ const getMessages = async () => {
     const response = await fetch("/api/messages")
     const messages = await response.json()
 
-    ul.innerHTML = ''
+    ul.innerHTML = '' 
     for (let i = 0; i < messages.length; i++) {
         const message = messages[i]
         const li = document.createElement('li')
@@ -34,7 +34,7 @@ const postMessages = async (message) => {
         method: 'POST',
         body: JSON.stringify(message)
     })
-    // después de enviar, siempre bajar al fondo
+    // después de enviar, siempre baja hasta abajo
     await getMessages()
     const ul = document.getElementById("messages")
     ul.scrollTop = ul.scrollHeight
@@ -48,14 +48,14 @@ const handleSend = () => {
     messageEl.value = ''
 }
 
-getMessages()
-setInterval(getMessages, 3000)
+getMessages()   
+setInterval(getMessages, 1000)
 
-document.getElementById('send').addEventListener('click', handleSend)
+document.getElementById('send').addEventListener('click', handleSend) //estaba usando antes el keydown y por eso no me dejaba
 
-document.getElementById('message').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault()
-        handleSend()
+document.getElementById('message').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault()
+        document.getElementById('send').click()
     }
 })
