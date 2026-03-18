@@ -1,5 +1,7 @@
 # Lab6-web
 
+para correr es go run main.go
+
 Objetivos:
 
 Que los alumnos practiquen conceptos básicos de javascript.
